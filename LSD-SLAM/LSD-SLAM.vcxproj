@@ -69,12 +69,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CameraTracker.cpp" />
+    <ClCompile Include="GaussNewtonSolver.cpp" />
     <ClCompile Include="LieAlgebra.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Metrics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraTracker.h" />
+    <ClInclude Include="GaussNewtonSolver.h" />
     <ClInclude Include="LieAlgebra.h" />
     <ClInclude Include="Metrics.h" />
   </ItemGroup>
