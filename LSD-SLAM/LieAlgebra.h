@@ -16,4 +16,7 @@ namespace LSD
 	void expm(const cv::Point3d& w, cv::Mat& dst, bool calcFull=true);
 
 	void skewSymmetricMatrix(const cv::Point3d& w, cv::Mat& dst);
+
+	//Input an intensity image where the intensity refers to the inverse depth
+	void projectiveWarp(const cv::Mat& src, cv::Mat& dst);
 }

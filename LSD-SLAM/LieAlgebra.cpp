@@ -2,6 +2,13 @@
 
 
 
+
+
+void LSD::projectiveWarp(const cv::Mat& src, cv::Mat& dst)
+{
+
+}
+
 void LSD::expm(const cv::Point3d& w, cv::Mat& dst, bool calcFull)
 {
 	//get skew symmetric matrix
