@@ -64,6 +64,7 @@ cv::Mat LSD::transformImage(const cv::Mat& src, const cv::Vec<double, 6>& arg)
 	transform.at<double>(cv::Point(3, 2)) = arg[5];
 
 	cv::Mat ret;
+	//cv::warpPerspective(src, ret, transform, src.size());
 	cv::perspectiveTransform(src, ret, transform);
 
 	return ret;
