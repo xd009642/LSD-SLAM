@@ -3,10 +3,21 @@
 
 
 
-
+//src is inverse depth image
 void LSD::projectiveWarp(const cv::Mat& src, cv::Mat& dst)
 {
+	/*
+		for each pixel p=src(r, c) that pixel is in 3D space
+		
+		w=(x/z, y/z, 1/z)   
 
+		where
+
+		(x, y, z) = exp(se(3))(c/src(r, c), r/src(r, c), 1/src(r, c))
+
+		Not sure what the exponential map for the vector is yet though, need to 
+		learn lie algebras better.
+	*/
 }
 
 void LSD::expm(const cv::Point3d& w, cv::Mat& dst, bool calcFull)
