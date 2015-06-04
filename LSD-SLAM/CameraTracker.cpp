@@ -1,5 +1,7 @@
 #include "CameraTracker.h"
 
+
+
 LSD::CameraTracker::CameraTracker()
 {
 

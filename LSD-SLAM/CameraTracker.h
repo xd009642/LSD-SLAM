@@ -17,4 +17,5 @@ namespace LSD
 	private:
 		cv::Mat lastFrame;
 	};
+
 }

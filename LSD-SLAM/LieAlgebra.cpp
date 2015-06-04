@@ -51,3 +51,20 @@ void LSD::skewSymmetricMatrix(const cv::Point3d& w, cv::Mat& dst)
 	dst.at<double>(cv::Point(1, 0)) = -w.z;
 	dst.at<double>(cv::Point(0, 1)) = w.z;
 }
+
+
+cv::Mat LSD::transformImage(const cv::Mat& src, const cv::Vec<double, 6>& arg)
+{
+	cv::Mat transform = cv::Mat::eye(cv::Size(4, 4), CV_64F);
+	//set rotation
+	expm(cv::Point3d(arg[0], arg[1], arg[2]), transform(cv::Range(0, 3),cv::Range(0, 3)));
+	//set translation
+	transform.at<double>(cv::Point(3, 0)) = arg[3];
+	transform.at<double>(cv::Point(3, 1)) = arg[4];
+	transform.at<double>(cv::Point(3, 2)) = arg[5];
+
+	cv::Mat ret;
+	cv::perspectiveTransform(src, ret, transform);
+
+	return ret;
+}
