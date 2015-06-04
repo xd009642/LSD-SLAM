@@ -21,7 +21,7 @@ namespace LSD
 		void solve(const cv::Mat& ref, const cv::Mat& src, cv::Vec<double, params>& arg);
 
 	protected:
-
+		void residual(const cv::Mat& ref, const cv::Mat& src, cv::Vec<double, params>& arg, cv::matchShapes& dst);
 	private:
 		F fn;
 	};
@@ -38,7 +38,13 @@ namespace LSD
 	{
 		//calculate error residual with 
 		cosineDistance(ref, fn(src, args));
+
+		//so we want to find args*= argmin(cosineDistance(ref, fn(src, args)));
 	}
 
-	
+	template<int params>
+	void GaussNewtonSolver::residual(const cv::Mat& ref, const cv::Mat& src, cv::Vec<double, params>& args, cv::Mat& dst)
+	{
+		dst = ref - fn(src, args);
+	}
 }
