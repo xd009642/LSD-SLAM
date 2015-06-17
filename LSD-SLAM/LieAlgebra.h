@@ -21,5 +21,5 @@ namespace LSD
 	void projectiveWarp(const cv::Mat& src, cv::Mat& dst);
 
 
-	cv::Mat transformImage(const cv::Mat& src, const cv::Vec<double, 6>& arg);
+	cv::Mat transformImage(const cv::Mat& src, const cv::Mat& depth, const cv::Vec<double, 6>& arg);
 }
