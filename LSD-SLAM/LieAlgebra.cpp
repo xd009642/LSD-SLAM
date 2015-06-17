@@ -4,55 +4,20 @@
 
 
 
-void LSD::expm(const cv::Point3d& w, cv::Mat& dst, bool calcFull)
-{
-	//get skew symmetric matrix
-	cv::Mat theta;
-	skewSymmetricMatrix(w, theta);
-
-	if (false == calcFull)
-	{
-		dst = cv::Mat::eye(cv::Size(3, 3), CV_64F) + theta;
-	}
-	else
-	{
-		double magW = L2norm(w);
-		if (magW == 0.0)
-			dst = cv::Mat::eye(cv::Size(3, 3), CV_64F);
-		else
-			dst = cv::Mat::eye(cv::Size(3, 3), CV_64F) + (sin(magW)/magW)*theta +
-				((1-cos(magW))/pow(magW, 2))*(theta*theta);
-	}
-}
-
-void LSD::skewSymmetricMatrix(const cv::Point3d& w, cv::Mat& dst)
-{
-	dst = cv::Mat::zeros(cv::Size(3, 3), CV_64F);
-
-	dst.at<double>(cv::Point(2, 1)) = -w.x;
-	dst.at<double>(cv::Point(1, 2)) = w.x;
-
-	dst.at<double>(cv::Point(0, 2)) = -w.y;
-	dst.at<double>(cv::Point(2, 0)) = w.y;
-
-	dst.at<double>(cv::Point(1, 0)) = -w.z;
-	dst.at<double>(cv::Point(0, 1)) = w.z;
-}
-
 /*
 	Creates SE(3) transformation matrix given the parameters x, y, z rotation then translation.
 
 	This matrix assumes the bodies being transformed are rigid.
 */
-void LSD::generateSE3Mat(const cv::Vec<double, 6>& arg, cv::Mat& dst)
+void LSD::generateSE3Mat(const cv::Mat& arg, cv::Mat& dst)
 {
 	dst = cv::Mat::eye(cv::Size(4, 4), CV_64F);
 	//set rotation
-	expm(cv::Point3d(arg[0], arg[1], arg[2]), dst(cv::Range(0, 3), cv::Range(0, 3)));
+	cv::Rodrigues(arg(cv::Range(0,3), cv::Range(0,1)), dst(cv::Range(0, 3), cv::Range(0, 3)));
 	//set translation
-	dst.at<double>(cv::Point(3, 0)) = arg[3];
-	dst.at<double>(cv::Point(3, 1)) = arg[4];
-	dst.at<double>(cv::Point(3, 2)) = arg[5];
+	dst.at<double>(cv::Point(3, 0)) = arg.at<double>(cv::Point(0, 3));
+	dst.at<double>(cv::Point(3, 1)) = arg.at<double>(cv::Point(0, 4));
+	dst.at<double>(cv::Point(3, 2)) = arg.at<double>(cv::Point(0, 5));
 }
 
 /*
