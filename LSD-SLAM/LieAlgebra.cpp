@@ -2,22 +2,7 @@
 
 
 
-//src is inverse depth image
-void LSD::projectiveWarp(const cv::Mat& src, cv::Mat& dst)
-{
-	/*
-		for each pixel p=src(r, c) that pixel is in 3D space
-		
-		w=(x/z, y/z, 1/z)   
 
-		where
-
-		(x, y, z) = exp(se(3))(c/src(r, c), r/src(r, c), 1/src(r, c))
-
-		Not sure what the exponential map for the vector is yet though, need to 
-		learn lie algebras better.
-	*/
-}
 
 void LSD::expm(const cv::Point3d& w, cv::Mat& dst, bool calcFull)
 {
@@ -55,7 +40,9 @@ void LSD::skewSymmetricMatrix(const cv::Point3d& w, cv::Mat& dst)
 }
 
 /*
-	Creates SE(3) transformation matrix given the parameters x, y, z rotation then translation
+	Creates SE(3) transformation matrix given the parameters x, y, z rotation then translation.
+
+	This matrix assumes the bodies being transformed are rigid.
 */
 void LSD::generateSE3Mat(const cv::Vec<double, 6>& arg, cv::Mat& dst)
 {
@@ -69,7 +56,7 @@ void LSD::generateSE3Mat(const cv::Vec<double, 6>& arg, cv::Mat& dst)
 }
 
 /*
-	Transforms image given pixel values and depth map by a given transformation.
+	Transforms image given pixel values and depth map and a given transformation.
 
 	assumes use of 8 bit 1 channel image
 */
