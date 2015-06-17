@@ -26,6 +26,8 @@ namespace LSD
 		void delta(const cv::Mat& r, cv::Mat& dst);
 	private:
 		F<params> fn;
+		//stores value limits (e.g. rotations are 0<= w < 360)
+		cv::Vec<double, params> limits;
 	};
 
 	template<int _T>

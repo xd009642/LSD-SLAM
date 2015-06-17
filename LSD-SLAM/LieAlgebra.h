@@ -2,6 +2,7 @@
 
 #include "Metrics.h"
 #include "opencv2\opencv.hpp"
+#define _USE_MATH_DEFINES
 #include <math.h>
 
 
@@ -19,7 +20,6 @@ namespace LSD
 
 	//Input an intensity image where the intensity refers to the inverse depth
 	void projectiveWarp(const cv::Mat& src, cv::Mat& dst);
-
 
 	cv::Mat transformImage(const cv::Mat& src, const cv::Mat& depth, const cv::Vec<double, 6>& arg);
 }

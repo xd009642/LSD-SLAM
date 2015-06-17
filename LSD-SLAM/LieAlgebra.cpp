@@ -84,7 +84,5 @@ cv::Mat LSD::transformImage(const cv::Mat& src, const cv::Mat& depth, const cv::
 				ret.at<uchar>(cv::Point(newX, newY)) = src.at<uchar>(cv::Point(r, c));
 		}
 	}
-
-
 	return ret;
 }
