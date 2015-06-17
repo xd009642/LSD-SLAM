@@ -2,7 +2,6 @@
 
 
 
-
 //src is inverse depth image
 void LSD::projectiveWarp(const cv::Mat& src, cv::Mat& dst)
 {
@@ -55,18 +54,29 @@ void LSD::skewSymmetricMatrix(const cv::Point3d& w, cv::Mat& dst)
 	dst.at<double>(cv::Point(0, 1)) = w.z;
 }
 
-//assumes use of 8 bit 1 channel image
-cv::Mat LSD::transformImage(const cv::Mat& src, const cv::Mat& depth, const cv::Vec<double, 6>& arg)
+/*
+	Creates SE(3) transformation matrix given the parameters x, y, z rotation then translation
+*/
+void LSD::generateSE3Mat(const cv::Vec<double, 6>& arg, cv::Mat& dst)
 {
-	cv::Mat transform = cv::Mat::eye(cv::Size(4, 4), CV_64F);
+	dst = cv::Mat::eye(cv::Size(4, 4), CV_64F);
 	//set rotation
-	expm(cv::Point3d(arg[0], arg[1], arg[2]), transform(cv::Range(0, 3),cv::Range(0, 3)));
+	expm(cv::Point3d(arg[0], arg[1], arg[2]), dst(cv::Range(0, 3), cv::Range(0, 3)));
 	//set translation
-	transform.at<double>(cv::Point(3, 0)) = arg[3];
-	transform.at<double>(cv::Point(3, 1)) = arg[4];
-	transform.at<double>(cv::Point(3, 2)) = arg[5];
+	dst.at<double>(cv::Point(3, 0)) = arg[3];
+	dst.at<double>(cv::Point(3, 1)) = arg[4];
+	dst.at<double>(cv::Point(3, 2)) = arg[5];
+}
 
-	cv::Mat ret=cv::Mat::zeros(src.rows, src.cols, src.type());
+/*
+	Transforms image given pixel values and depth map by a given transformation.
+
+	assumes use of 8 bit 1 channel image
+*/
+void LSD::transformImage(const cv::Mat& src, const cv::Mat& depth, const cv::Mat& transform, cv::Mat& dst)
+{
+	dst=cv::Mat::zeros(src.rows, src.cols, src.type());
+
 	for (int r = 0; r < src.rows; r++)
 	{
 		for (int c = 0; c < src.cols; c++)
@@ -80,9 +90,8 @@ cv::Mat LSD::transformImage(const cv::Mat& src, const cv::Mat& depth, const cv::
 			cv::Mat newPoint = transform * p;
 			int newX = static_cast<int>(newPoint.at<double>(0, 0) / newPoint.at<double>(2, 0));
 			int newY = static_cast<int>(newPoint.at<double>(1, 0) / newPoint.at<double>(2, 0));
-			if (newX>-1 && newX < ret.cols && newY>-1 && newY<ret.rows)
-				ret.at<uchar>(cv::Point(newX, newY)) = src.at<uchar>(cv::Point(r, c));
+			if (newX>-1 && newX < dst.cols && newY>-1 && newY<dst.rows)
+				dst.at<uchar>(cv::Point(newX, newY)) = src.at<uchar>(cv::Point(r, c));
 		}
 	}
-	return ret;
 }

@@ -8,6 +8,9 @@
 
 namespace LSD
 {
+
+	void generateSE3Mat(const cv::Vec<double, 6>& arg, cv::Mat& dst);
+
 	/*
 	maps from lie algebra to lie group to get rotation matrix
 	calcFull specifies that full calculation is done, for small
@@ -21,5 +24,5 @@ namespace LSD
 	//Input an intensity image where the intensity refers to the inverse depth
 	void projectiveWarp(const cv::Mat& src, cv::Mat& dst);
 
-	cv::Mat transformImage(const cv::Mat& src, const cv::Mat& depth, const cv::Vec<double, 6>& arg);
+	void transformImage(const cv::Mat& src, const cv::Mat& depth, const cv::Mat& transform, cv::Mat& dst);
 }
