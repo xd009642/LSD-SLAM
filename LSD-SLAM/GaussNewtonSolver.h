@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Metrics.h"
-#include "LieAlgebra.h"
 #include "opencv2\opencv.hpp"
 #include <math.h>
 #include <functional>

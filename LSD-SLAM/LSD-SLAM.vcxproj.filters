@@ -24,9 +24,6 @@
     <ClCompile Include="Metrics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LieAlgebra.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GaussNewtonSolver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,9 +33,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Metrics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LieAlgebra.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GaussNewtonSolver.h">
