@@ -18,24 +18,27 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CameraTracker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Metrics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GaussNewtonSolver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="camera_tracker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CameraTracker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Metrics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GaussNewtonSolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera_tracker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="img_common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
